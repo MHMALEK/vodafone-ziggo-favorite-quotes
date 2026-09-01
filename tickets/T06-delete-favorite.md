@@ -8,7 +8,7 @@
 - `DELETE /api/favorites/:id` → 204; 404 unknown id; 400 non-numeric id.
 
 ## Acceptance criteria
-- [ ] Supertest: 204 removes (subsequent GET no longer lists it), 404 for unknown, 400 for `abc`.
+- [x] Supertest: 204 removes (subsequent GET no longer lists it), 404 for unknown, 400 for `abc`.
 
 ## Verify
 ```bash

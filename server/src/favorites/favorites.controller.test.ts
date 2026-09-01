@@ -51,6 +51,37 @@ describe('POST /api/favorites', () => {
   });
 });
 
+describe('DELETE /api/favorites/:id', () => {
+  it('removes a favorite and returns 204', async () => {
+    const { app } = makeTestApp();
+    await request(app).post('/api/favorites').send(sampleQuote());
+
+    const res = await request(app).delete('/api/favorites/1');
+
+    expect(res.status).toBe(204);
+    const list = await request(app).get('/api/favorites');
+    expect(list.body.favorites).toEqual([]);
+  });
+
+  it('returns 404 for an unknown id', async () => {
+    const { app } = makeTestApp();
+
+    const res = await request(app).delete('/api/favorites/999');
+
+    expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe('NOT_FOUND');
+  });
+
+  it('returns 400 for a non-numeric id', async () => {
+    const { app } = makeTestApp();
+
+    const res = await request(app).delete('/api/favorites/abc');
+
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+  });
+});
+
 describe('GET /api/favorites', () => {
   it('returns an empty list when nothing is saved', async () => {
     const { app } = makeTestApp();

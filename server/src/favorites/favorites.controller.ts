@@ -29,5 +29,16 @@ export function favoritesController(favoritesService: FavoritesService): Router 
     res.json({ favorites: favoritesService.list() });
   });
 
+  router.delete('/api/favorites/:id', (req, res) => {
+    const id = Number(req.params.id);
+    if (!Number.isInteger(id) || id <= 0) {
+      throw new HttpError(400, 'VALIDATION_ERROR', 'id must be a positive integer');
+    }
+    if (!favoritesService.remove(id)) {
+      throw new HttpError(404, 'NOT_FOUND', `No favorite with id ${id}`);
+    }
+    res.status(204).end();
+  });
+
   return router;
 }
