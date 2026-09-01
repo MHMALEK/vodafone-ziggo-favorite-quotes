@@ -10,8 +10,8 @@
 - `add` is idempotent: second add of the same id returns existing favorite with `created: false` (original `savedAt` kept).
 
 ## Acceptance criteria
-- [ ] Unit tests: add → created true; duplicate add → created false, savedAt unchanged; remove existing → true; remove missing → false; list ordering newest-first.
-- [ ] No Express imports.
+- [x] Unit tests: add → created true; duplicate add → created false, savedAt unchanged; remove existing → true; remove missing → false; list ordering newest-first.
+- [x] No Express imports.
 
 ## Verify
 ```bash
