@@ -15,9 +15,9 @@
 - `GET /health` → `200 {"status":"ok"}`.
 
 ## Acceptance criteria
-- [ ] Fresh clone: `cd server && npm i && cp .env.example .env` (any key value) && `npm run dev` serves `/health`.
-- [ ] Boot without `FAVQS_API_KEY` exits with a readable error, not a stack trace.
-- [ ] `npm test` and `npm run lint` pass.
+- [x] Fresh clone: `cd server && npm i && cp .env.example .env` (any key value) && `npm run dev` serves `/health`.
+- [x] Boot without `FAVQS_API_KEY` exits with a readable error, not a stack trace.
+- [x] `npm test` and `npm run lint` pass.
 
 ## Verify
 ```bash
