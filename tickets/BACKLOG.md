@@ -16,7 +16,7 @@ Workflow rules:
 | T04 | [GET /api/quote](T04-get-quote.md) | 25m | ✅ |
 | T05 | [POST + GET favorites](T05-favorites-endpoints.md) | 30m | ✅ |
 | T06 | [DELETE favorite](T06-delete-favorite.md) | 15m | ✅ |
-| T07 | [Search endpoint](T07-search-endpoint.md) | 20m | ☐ |
+| T07 | [Search endpoint](T07-search-endpoint.md) | 20m | ⏳ code+tests done; live smoke needs the API key |
 | T08 | [API hardening + observability](T08-api-hardening.md) | 50m | ☐ |
 | T15 | [Dockerize server + Makefile](T15-docker-make.md) | 40m | ☐ |
 | T09 | [Expo scaffold + navigation + API client](T09-mobile-scaffold.md) | 35m | ☐ |

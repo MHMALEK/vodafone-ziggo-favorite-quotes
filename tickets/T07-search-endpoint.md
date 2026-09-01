@@ -9,8 +9,8 @@
 - Empty FavQs result (placeholder-row quirk) → `{quotes: []}`.
 
 ## Acceptance criteria
-- [ ] Supertest: 200 with results, 200 `{quotes:[]}` on no hits, 400 missing `q`, 400 blank `q`, 400 over-length `q`, 502 upstream failure.
-- [ ] Manual curl with a real keyword returns plausible quotes.
+- [x] Supertest: 200 with results, 200 `{quotes:[]}` on no hits, 400 missing `q`, 400 blank `q`, 400 over-length `q`, 502 upstream failure.
+- [ ] Manual curl with a real keyword returns plausible quotes. *(Pending `FAVQS_API_KEY` in `server/.env` — same blocker as T02's live smoke.)*
 
 ## Verify
 ```bash
