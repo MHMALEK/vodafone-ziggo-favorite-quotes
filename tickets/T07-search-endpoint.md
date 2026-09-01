@@ -5,11 +5,11 @@
 **Depends on:** T02, T04 (error middleware)
 
 ## Scope
-- `GET /api/quotes/search?q={keyword}` → 200 `{quotes}`; 400 when `q` missing or blank; upstream errors via existing middleware.
+- `GET /api/quotes/search?q={keyword}` → 200 `{quotes}`; 400 when `q` missing, blank, or over 100 chars (bounded input); upstream errors via existing middleware.
 - Empty FavQs result (placeholder-row quirk) → `{quotes: []}`.
 
 ## Acceptance criteria
-- [ ] Supertest: 200 with results, 200 `{quotes:[]}` on no hits, 400 missing `q`, 400 blank `q`, 502 upstream failure.
+- [ ] Supertest: 200 with results, 200 `{quotes:[]}` on no hits, 400 missing `q`, 400 blank `q`, 400 over-length `q`, 502 upstream failure.
 - [ ] Manual curl with a real keyword returns plausible quotes.
 
 ## Verify

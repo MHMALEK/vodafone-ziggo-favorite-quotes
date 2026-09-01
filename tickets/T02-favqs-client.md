@@ -10,6 +10,7 @@
 - zod-parses upstream responses into internal `Quote` (`{id, body, author, tags}`); extras dropped.
 - Typed `UpstreamError` with `kind: "http" | "timeout" | "network" | "malformed"` (later mapped to 502/504 by middleware).
 - Handle the FavQs empty-search quirk (placeholder `id: 0` "No quotes found" row → `[]`). **Verify the real shape with one manual curl before coding the mapping.**
+- The API key is read only where the auth header is built and never appears in log output or error messages.
 
 ## Acceptance criteria
 - [ ] Unit tests (mocked `fetch`): qotd happy path, search happy path, empty search → `[]`, upstream 500 → `UpstreamError(http)`, timeout → `UpstreamError(timeout)`, malformed JSON/shape → `UpstreamError(malformed)`.

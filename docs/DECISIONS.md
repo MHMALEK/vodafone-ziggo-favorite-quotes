@@ -21,3 +21,9 @@ Short ADR log. Each entry: decision + why + trade-off. These feed the README's "
 **D9 — Server port defaults to 4000.** 3000 collides with the local TRACT stack frontend on this machine; configurable via `PORT`.
 
 **D10 — Mobile API base URL via `EXPO_PUBLIC_API_URL`.** Defaults to `http://localhost:4000` (iOS simulator); Android emulator needs `http://10.0.2.2:4000` — documented in the README rather than auto-detected.
+
+**D11 — Simple monitoring: pino JSON logs + correlation IDs + prom-client `/metrics`.** Two small, industry-standard dependencies buy structured request logs, an ID that ties an error response to its log line, and Prometheus-scrapable metrics (request durations, upstream FavQs calls). Trade-off: no tracing/OTel and nothing consuming the metrics in this exercise — the point is that the service is *observable*, wiring Grafana/alerts is a stated next step.
+
+**D12 — Server fully dockerized + root Makefile, three run modes.** Multi-stage Dockerfile (build stage → slim non-root runtime with prod deps only), container `HEALTHCHECK` on `/health`, graceful SIGTERM shutdown so `docker stop` (and a K8s drain) is clean. A root Makefile is the single entry point for reviewers (`make help`). Trade-offs: no docker-compose (one service — plain `docker run` is clearer) and the Expo app stays on the host (simulators don't containerize).
+
+**D13 — CI quality gate via GitHub Actions.** One workflow: server lint + build + test, mobile test, and a docker-image build check on every push/PR. Pipelines-as-quality-gates rather than deploy scripts; deployment itself stays out of scope.

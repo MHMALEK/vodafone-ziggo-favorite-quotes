@@ -7,7 +7,7 @@
 ## Scope
 Root `README.md`:
 - What this is (one paragraph) + repo layout.
-- Server: prereqs (Node ≥ 20), FavQs key signup link, `.env` setup (**where the key goes**), run + test commands.
+- Server: prereqs (Node ≥ 20, Docker optional), FavQs key signup link, `.env` setup (**where the key goes**), all three run modes (npm standalone, raw docker commands, make targets) + test commands.
 - Mobile: run instructions (`npx expo start`), `EXPO_PUBLIC_API_URL`, Android emulator `10.0.2.2` note.
 - Endpoint table (from docs/SPEC.md).
 - The four required answers: what I implemented / why implemented-or-skipped / trade-offs (source: docs/DECISIONS.md) / what I'd improve with more time (persistence, shared types package, qotd caching for rate limits, CI, retry policy…).
