@@ -11,7 +11,7 @@ Workflow rules:
 | # | Ticket | Est | Status |
 |---|--------|-----|--------|
 | T01 | [Server scaffold](T01-server-scaffold.md) | 30m | ✅ |
-| T02 | [FavQs client](T02-favqs-client.md) | 45m | ☐ |
+| T02 | [FavQs client](T02-favqs-client.md) | 45m | ⏳ code+tests done; live search smoke needs the API key |
 | T03 | [Favorites store](T03-favorites-store.md) | 20m | ☐ |
 | T04 | [GET /api/quote](T04-get-quote.md) | 25m | ☐ |
 | T05 | [POST + GET favorites](T05-favorites-endpoints.md) | 30m | ☐ |

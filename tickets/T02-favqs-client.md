@@ -13,9 +13,9 @@
 - The API key is read only where the auth header is built and never appears in log output or error messages.
 
 ## Acceptance criteria
-- [ ] Unit tests (mocked `fetch`): qotd happy path, search happy path, empty search → `[]`, upstream 500 → `UpstreamError(http)`, timeout → `UpstreamError(timeout)`, malformed JSON/shape → `UpstreamError(malformed)`.
-- [ ] No route/Express imports in the module.
-- [ ] One manual smoke against the real FavQs API with the real key.
+- [x] Unit tests (mocked `fetch`): qotd happy path, search happy path, empty search → `[]`, upstream 500 → `UpstreamError(http)`, timeout → `UpstreamError(timeout)`, malformed JSON/shape → `UpstreamError(malformed)`.
+- [x] No route/Express imports in the module.
+- [ ] One manual smoke against the real FavQs API with the real key. *(Pending `FAVQS_API_KEY` in `server/.env` — the qotd shape was verified against the live API on 2026-09-01; unauthenticated search returns "HTTP Token: Access denied.", so the authenticated search smoke is the outstanding piece.)*
 
 ## Verify
 ```bash
