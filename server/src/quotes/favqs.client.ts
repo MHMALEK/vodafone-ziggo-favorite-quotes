@@ -37,11 +37,20 @@ export interface FavqsClient {
   searchQuotes(query: string): Promise<Quote[]>;
 }
 
+export type FavqsCallOutcome = 'success' | UpstreamErrorKind;
+
+export type FavqsObserver = (
+  endpoint: 'qotd' | 'search',
+  outcome: FavqsCallOutcome,
+  durationMs: number,
+) => void;
+
 export interface FavqsClientOptions {
   apiKey: string;
   baseUrl?: string;
   timeoutMs?: number;
   fetchFn?: typeof fetch;
+  observe?: FavqsObserver;
 }
 
 const DEFAULT_BASE_URL = 'https://favqs.com/api';
@@ -90,17 +99,34 @@ export function createFavqsClient(options: FavqsClientOptions): FavqsClient {
     return result.data;
   }
 
+  async function observed<T>(endpoint: 'qotd' | 'search', call: () => Promise<T>): Promise<T> {
+    const start = Date.now();
+    try {
+      const result = await call();
+      options.observe?.(endpoint, 'success', Date.now() - start);
+      return result;
+    } catch (err) {
+      const outcome = err instanceof UpstreamError ? err.kind : 'network';
+      options.observe?.(endpoint, outcome, Date.now() - start);
+      throw err;
+    }
+  }
+
   return {
-    async getQotd(): Promise<Quote> {
-      const payload = await request('/qotd');
-      return parse(qotdResponseSchema, payload).quote;
+    getQotd(): Promise<Quote> {
+      return observed('qotd', async () => {
+        const payload = await request('/qotd');
+        return parse(qotdResponseSchema, payload).quote;
+      });
     },
 
-    async searchQuotes(query: string): Promise<Quote[]> {
-      const payload = await request(`/quotes?filter=${encodeURIComponent(query)}`);
-      const { quotes } = parse(searchResponseSchema, payload);
-      // FavQs signals "no results" with a single placeholder row (id 0, "No quotes found").
-      return quotes.filter((quote) => quote.id > 0);
+    searchQuotes(query: string): Promise<Quote[]> {
+      return observed('search', async () => {
+        const payload = await request(`/quotes?filter=${encodeURIComponent(query)}`);
+        const { quotes } = parse(searchResponseSchema, payload);
+        // FavQs signals "no results" with a single placeholder row (id 0, "No quotes found").
+        return quotes.filter((quote) => quote.id > 0);
+      });
     },
   };
 }

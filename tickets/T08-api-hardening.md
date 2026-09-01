@@ -20,12 +20,12 @@ Hardening:
 - Review test coverage of the two non-trivial modules (client, store) — fill obvious gaps.
 
 ## Acceptance criteria
-- [ ] Supertest: 404 unknown route, 400 malformed JSON body, 500 path returns JSON with correlationId (forced throw via mocked service).
-- [ ] Supertest: response `error.correlationId` matches a sent `x-request-id`.
-- [ ] `/metrics` returns Prometheus text including the request histogram after traffic.
-- [ ] Grep confirms the API key can't be logged (only ever read in the client's header builder).
-- [ ] `kill -TERM <pid>` on a running server exits 0 promptly with a shutdown log line.
-- [ ] `npm test` fully green; `npm run lint` clean; `npm run build` succeeds.
+- [x] Supertest: 404 unknown route, 400 malformed JSON body, 500 path returns JSON with correlationId (forced throw via mocked service).
+- [x] Supertest: response `error.correlationId` matches a sent `x-request-id`.
+- [x] `/metrics` returns Prometheus text including the request histogram after traffic.
+- [x] Grep confirms the API key can't be logged (only ever read in the client's header builder).
+- [x] `kill -TERM <pid>` on a running server exits 0 promptly with a shutdown log line.
+- [x] `npm test` fully green; `npm run lint` clean; `npm run build` succeeds.
 
 ## Verify
 ```bash
