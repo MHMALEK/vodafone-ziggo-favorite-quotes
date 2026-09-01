@@ -10,8 +10,8 @@
 - Unknown routes → 404 JSON.
 
 ## Acceptance criteria
-- [ ] Supertest (client mocked): 200 shape, 502 on upstream failure, 504 on timeout.
-- [ ] Manual curl against real FavQs returns a real quote.
+- [x] Supertest (client mocked): 200 shape, 502 on upstream failure, 504 on timeout.
+- [x] Manual curl against real FavQs returns a real quote.
 
 ## Verify
 ```bash
