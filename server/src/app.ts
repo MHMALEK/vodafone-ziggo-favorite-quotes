@@ -3,6 +3,7 @@ import express from 'express';
 import type { FavoritesStore } from './favorites/store';
 import type { FavqsClient } from './favqs/client';
 import { errorHandler, notFoundHandler } from './middleware/error-handler';
+import { favoritesRouter } from './routes/favorites';
 import { quoteRouter } from './routes/quote';
 
 export interface AppDependencies {
@@ -19,6 +20,7 @@ export function createApp(deps: AppDependencies): express.Express {
   });
 
   app.use(quoteRouter(deps.favqsClient));
+  app.use(favoritesRouter(deps.favoritesStore));
 
   app.use(notFoundHandler);
   app.use(errorHandler);

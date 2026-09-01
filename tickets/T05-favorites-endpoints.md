@@ -9,7 +9,7 @@
 - `GET /api/favorites` → 200 `{favorites}` newest-first.
 
 ## Acceptance criteria
-- [ ] Supertest: 201 first like, 200 duplicate like (same favorite back), 400 on missing/invalid fields (id 0, empty body, wrong types), GET returns saved list in order, GET empty → `{favorites: []}`.
+- [x] Supertest: 201 first like, 200 duplicate like (same favorite back), 400 on missing/invalid fields (id 0, empty body, wrong types), GET returns saved list in order, GET empty → `{favorites: []}`.
 
 ## Verify
 ```bash
