@@ -1,7 +1,8 @@
-import type { AppDependencies } from './app';
-import { createApp } from './app';
-import { InMemoryFavoritesStore } from './favorites/store';
-import type { FavqsClient, Quote } from './favqs/client';
+import type { AppDependencies } from '../app';
+import { createApp } from '../app';
+import { InMemoryFavoritesStore } from '../favorites/favorites.store';
+import type { FavqsClient } from '../quotes/favqs.client';
+import type { Quote } from '../quotes/quote.model';
 
 export const sampleQuote = (id = 1): Quote => ({
   id,

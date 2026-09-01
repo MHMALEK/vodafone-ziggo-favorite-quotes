@@ -2,8 +2,8 @@ import 'dotenv/config';
 
 import { createApp } from './app';
 import { ConfigError, loadConfig } from './config';
-import { InMemoryFavoritesStore } from './favorites/store';
-import { createFavqsClient } from './favqs/client';
+import { InMemoryFavoritesStore } from './favorites/favorites.store';
+import { createFavqsClient } from './quotes/favqs.client';
 
 function main(): void {
   const config = loadConfig();

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 
-import { makeTestApp, sampleQuote } from '../test-helpers';
+import { makeTestApp, sampleQuote } from '../testing/helpers';
 
 describe('POST /api/favorites', () => {
   it('saves a quote and returns 201 with the stored favorite', async () => {

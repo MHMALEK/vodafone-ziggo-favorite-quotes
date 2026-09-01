@@ -1,10 +1,12 @@
 import express from 'express';
 
-import type { FavoritesStore } from './favorites/store';
-import type { FavqsClient } from './favqs/client';
-import { errorHandler, notFoundHandler } from './middleware/error-handler';
-import { favoritesRouter } from './routes/favorites';
-import { quoteRouter } from './routes/quote';
+import { favoritesController } from './favorites/favorites.controller';
+import { createFavoritesService } from './favorites/favorites.service';
+import type { FavoritesStore } from './favorites/favorites.store';
+import { errorHandler, notFoundHandler } from './http/error-handler';
+import type { FavqsClient } from './quotes/favqs.client';
+import { quotesController } from './quotes/quotes.controller';
+import { createQuotesService } from './quotes/quotes.service';
 
 export interface AppDependencies {
   favqsClient: FavqsClient;
@@ -12,6 +14,9 @@ export interface AppDependencies {
 }
 
 export function createApp(deps: AppDependencies): express.Express {
+  const quotesService = createQuotesService(deps.favqsClient);
+  const favoritesService = createFavoritesService(deps.favoritesStore);
+
   const app = express();
   app.use(express.json());
 
@@ -19,8 +24,8 @@ export function createApp(deps: AppDependencies): express.Express {
     res.json({ status: 'ok' });
   });
 
-  app.use(quoteRouter(deps.favqsClient));
-  app.use(favoritesRouter(deps.favoritesStore));
+  app.use(quotesController(quotesService));
+  app.use(favoritesController(favoritesService));
 
   app.use(notFoundHandler);
   app.use(errorHandler);

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { Quote } from '../favqs/client';
-import { InMemoryFavoritesStore } from './store';
+import type { Quote } from '../quotes/quote.model';
+import { InMemoryFavoritesStore } from './favorites.store';
 
 const quote = (id: number): Quote => ({
   id,

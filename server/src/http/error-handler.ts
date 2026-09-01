@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { HttpError } from '../errors';
-import { UpstreamError } from '../favqs/client';
+import { UpstreamError } from '../quotes/favqs.client';
+import { HttpError } from './errors';
 
 function respond(res: Response, status: number, code: string, message: string): void {
   res.status(status).json({ error: { code, message } });

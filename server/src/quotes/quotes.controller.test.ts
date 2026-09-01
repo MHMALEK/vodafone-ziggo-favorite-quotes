@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 
-import { UpstreamError } from '../favqs/client';
-import { makeTestApp, sampleQuote, stubFavqsClient } from '../test-helpers';
+import { makeTestApp, sampleQuote, stubFavqsClient } from '../testing/helpers';
+import { UpstreamError } from './favqs.client';
 
 describe('GET /api/quote', () => {
   it('returns the quote of the day', async () => {

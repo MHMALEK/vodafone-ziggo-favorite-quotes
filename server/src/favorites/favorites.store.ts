@@ -1,13 +1,5 @@
-import type { Quote } from '../favqs/client';
-
-export interface Favorite extends Quote {
-  savedAt: string;
-}
-
-export interface AddResult {
-  favorite: Favorite;
-  created: boolean;
-}
+import type { Quote } from '../quotes/quote.model';
+import type { AddResult, Favorite } from './favorite.model';
 
 export interface FavoritesStore {
   add(quote: Quote): AddResult;

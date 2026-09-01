@@ -1,11 +1,6 @@
 import { z } from 'zod';
 
-export interface Quote {
-  id: number;
-  body: string;
-  author: string;
-  tags: string[];
-}
+import type { Quote } from './quote.model';
 
 export type UpstreamErrorKind = 'http' | 'timeout' | 'network' | 'malformed';
 

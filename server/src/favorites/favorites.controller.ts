@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { z } from 'zod';
 
-import { HttpError } from '../errors';
-import type { FavoritesStore } from '../favorites/store';
+import { HttpError } from '../http/errors';
+import { describeIssues } from '../utils/zod';
+import type { FavoritesService } from './favorites.service';
 
 const favoriteBodySchema = z.object({
   id: z.number().int().positive(),
@@ -11,13 +12,7 @@ const favoriteBodySchema = z.object({
   tags: z.array(z.string()).default([]),
 });
 
-function describeIssues(error: z.ZodError): string {
-  return error.issues
-    .map((issue) => `${issue.path.join('.') || 'body'}: ${issue.message}`)
-    .join('; ');
-}
-
-export function favoritesRouter(store: FavoritesStore): Router {
+export function favoritesController(favoritesService: FavoritesService): Router {
   const router = Router();
 
   router.post('/api/favorites', (req, res) => {
@@ -26,12 +21,12 @@ export function favoritesRouter(store: FavoritesStore): Router {
       throw new HttpError(400, 'VALIDATION_ERROR', describeIssues(parsed.error));
     }
 
-    const { favorite, created } = store.add(parsed.data);
+    const { favorite, created } = favoritesService.save(parsed.data);
     res.status(created ? 201 : 200).json({ favorite });
   });
 
   router.get('/api/favorites', (_req, res) => {
-    res.json({ favorites: store.list() });
+    res.json({ favorites: favoritesService.list() });
   });
 
   return router;

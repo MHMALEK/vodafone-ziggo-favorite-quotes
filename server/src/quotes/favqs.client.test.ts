@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { createFavqsClient, UpstreamError } from './client';
+import { createFavqsClient, UpstreamError } from './favqs.client';
 
 const API_KEY = 'test-secret-key';
 
