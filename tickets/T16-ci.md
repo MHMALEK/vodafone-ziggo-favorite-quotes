@@ -11,8 +11,8 @@
   - job **docker**: `docker build server/` (image build check only, no push)
 
 ## Acceptance criteria
-- [ ] Workflow green on the latest commit on GitHub (`gh run list`).
-- [ ] A deliberately broken test on a scratch branch turns the run red (then delete the branch).
+- [x] Workflow green on the latest commit on GitHub (`gh run list`).
+- [x] A deliberately broken test on a scratch branch turns the run red (then delete the branch). (Scratch PR run concluded `failure` as expected; PR closed, branch deleted.)
 
 ## Verify
 ```bash
