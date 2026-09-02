@@ -13,7 +13,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
@@ -25,10 +27,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
+    "@playwright/test": "^1.62.1",
     "@types/express": "^5.0.6",
     "@types/node": "^26.4.1",
     "@types/supertest": "^7.2.1",
     "@types/swagger-ui-express": "^4.1.8",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^9.39.5",
     "prettier": "^3.9.6",
     "supertest": "^7.2.2",

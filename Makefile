@@ -4,7 +4,7 @@ IMAGE := favorites-quotes-server
 CONTAINER := favorites-quotes
 PORT ?= 4000
 
-.PHONY: help setup dev test lint build docker-build docker-run docker-logs docker-stop mobile
+.PHONY: help setup dev test coverage e2e lint build docker-build docker-run docker-logs docker-stop mobile
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -19,6 +19,12 @@ dev: ## Run the API in watch mode
 test: ## Run all tests
 	cd server && npm test
 	@if [ -d mobile ]; then cd mobile && npm test; fi
+
+coverage: ## Run server tests with the coverage gate
+	cd server && npm run test:coverage
+
+e2e: ## Run Playwright API tests (boots its own server)
+	cd server && npm run test:e2e
 
 lint: ## Lint the server
 	cd server && npm run lint
