@@ -21,7 +21,7 @@ Workflow rules:
 | T15 | [Dockerize server + Makefile](T15-docker-make.md) | 40m | ✅ |
 | T17 | [OpenAPI docs](T17-openapi-docs.md) | 20m | ✅ |
 | T18 | [Playwright E2E + coverage gate](T18-e2e-coverage.md) | 30m | ✅ |
-| T09 | [Expo scaffold + navigation + API client](T09-mobile-scaffold.md) | 35m | ☐ |
+| T09 | [Expo scaffold + navigation + API client](T09-mobile-scaffold.md) | 35m | ⏳ code done; sim check blocked on xcode-select |
 | T10 | [Home screen](T10-home-screen.md) | 30m | ☐ |
 | T11 | [Favorites screen](T11-favorites-screen.md) | 30m | ☐ |
 | T12 | [Search screen](T12-search-screen.md) | 30m | ☐ |
