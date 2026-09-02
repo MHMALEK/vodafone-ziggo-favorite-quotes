@@ -12,6 +12,12 @@ The only secret is `FAVQS_API_KEY`.
 
 A local secret manager is deliberately **not** used: for a single-dev exercise it adds setup friction without changing the security property that matters here (key stays out of Git, logs, images, and the client). `.env` is the standard local boundary.
 
+That said, the app is secret-manager-ready with zero code changes — config is plain env vars, so any injector works instead of `.env`:
+
+```bash
+op run --env-file=server/.env.example -- npm run dev   # 1Password CLI, or doppler/sops equivalents
+```
+
 ## Production (how this would ship)
 
 - Store the key in the platform's secret manager (Kubernetes: Vault or External Secrets Operator syncing from GCP/AWS Secret Manager).
