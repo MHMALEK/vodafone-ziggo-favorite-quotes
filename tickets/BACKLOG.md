@@ -28,6 +28,6 @@ Workflow rules:
 | T13 | [Dark mode + RN component tests](T13-polish.md) | 45m | ✅ |
 | T16 | [CI pipeline (GitHub Actions)](T16-ci.md) | 25m | ✅ |
 | T19 | [Dislikes — hide a quote forever](T19-dislikes.md) | 45m | ✅ |
-| T14 | [README + submission](T14-readme.md) | 30m | ☐ |
+| T14 | [README + submission](T14-readme.md) | 30m | ✅ (sharing the link = owner action) |
 
 Total ≈ 8.5h (required core T01–T05, T09–T11 ≈ 4.5h; rest is optional scope + monitoring/docker/CI polish — the assessment caps at 16h, so comfortably inside).

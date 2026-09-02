@@ -14,9 +14,9 @@ Root `README.md`:
 - Final full-suite run: server lint+build+test, mobile test, one end-to-end manual walk.
 
 ## Acceptance criteria
-- [ ] A fresh-clone dry run following only the README works for both parts.
-- [ ] All four assessment questions answered.
-- [ ] Reminder honored: repo link must be shared ≥ 24h before the interview.
+- [x] A fresh-clone dry run following only the README works for both parts. (2026-09-02: clean clone → server install/lint/61 tests/build/boot + mobile install/typecheck/19 tests, all green.)
+- [x] All four assessment questions answered.
+- [ ] Reminder: repo link must be shared ≥ 24h before the interview (owner action).
 
 ## Verify
 Fresh terminal, follow README top to bottom.
