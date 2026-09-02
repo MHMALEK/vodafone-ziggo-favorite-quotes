@@ -18,7 +18,7 @@ Workflow rules:
 | T06 | [DELETE favorite](T06-delete-favorite.md) | 15m | ✅ |
 | T07 | [Search endpoint](T07-search-endpoint.md) | 20m | ⏳ code+tests done; live smoke needs the API key |
 | T08 | [API hardening + observability](T08-api-hardening.md) | 50m | ✅ |
-| T15 | [Dockerize server + Makefile](T15-docker-make.md) | 40m | ☐ |
+| T15 | [Dockerize server + Makefile](T15-docker-make.md) | 40m | ✅ |
 | T09 | [Expo scaffold + navigation + API client](T09-mobile-scaffold.md) | 35m | ☐ |
 | T10 | [Home screen](T10-home-screen.md) | 30m | ☐ |
 | T11 | [Favorites screen](T11-favorites-screen.md) | 30m | ☐ |

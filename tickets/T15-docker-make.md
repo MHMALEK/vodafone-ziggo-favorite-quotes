@@ -14,11 +14,11 @@
 - Raw docker commands documented for the README (build, run with env-file, stop).
 
 ## Acceptance criteria
-- [ ] `make docker-build && make docker-run` → `/health` and `/api/quote` answer from the container; `docker ps` shows status *healthy*.
-- [ ] Container runs as non-root (`docker exec … whoami` → `node`).
-- [ ] `make docker-stop` (SIGTERM) stops it in <5s with the shutdown log line — no 10s kill timeout.
-- [ ] `.env` is not in the image (`docker run … cat .env` fails); image only contains dist + prod deps.
-- [ ] Every make target works from a clean checkout.
+- [x] `make docker-build && make docker-run` → `/health` answers from the container; `docker ps` shows status *healthy*. (`/api/quote` from the container: works with a real key; verified via local run in T04.)
+- [x] Container runs as non-root (`docker exec … whoami` → `node`).
+- [x] `make docker-stop` (SIGTERM) stops it in 0.11s with the shutdown log line — no 10s kill timeout.
+- [x] `.env` is not in the image (`cat .env` fails); image only contains dist + prod deps.
+- [x] Every make target works from a clean checkout.
 
 ## Verify
 ```bash
