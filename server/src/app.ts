@@ -35,6 +35,16 @@ export function createApp(deps: AppDependencies): express.Express {
   app.use(httpMetrics(metrics.httpRequestDuration));
   app.use(express.json());
 
+  app.get('/', (_req, res) => {
+    res.json({
+      service: 'favorites-quotes-api',
+      docs: '/docs',
+      openapi: '/openapi.json',
+      health: '/health',
+      metrics: '/metrics',
+    });
+  });
+
   app.get('/health', (_req, res) => {
     res.json({ status: 'ok' });
   });

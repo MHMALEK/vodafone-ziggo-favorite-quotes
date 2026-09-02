@@ -66,6 +66,17 @@ describe('GET /metrics', () => {
   });
 });
 
+describe('index route', () => {
+  it('lists the entry points', async () => {
+    const { app } = makeTestApp();
+
+    const res = await request(app).get('/');
+
+    expect(res.status).toBe(200);
+    expect(res.body.docs).toBe('/docs');
+  });
+});
+
 describe('API docs', () => {
   it('serves the OpenAPI spec', async () => {
     const { app } = makeTestApp();
