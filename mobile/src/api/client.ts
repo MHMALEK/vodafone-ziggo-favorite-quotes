@@ -62,6 +62,12 @@ export const api = {
 
   removeFavorite: (id: number): Promise<void> =>
     requestJson<void>(`/api/favorites/${id}`, { method: 'DELETE' }),
+
+  dislikeQuote: (id: number): Promise<void> =>
+    requestJson<{ dislike: { id: number } }>('/api/dislikes', {
+      method: 'POST',
+      body: JSON.stringify({ id }),
+    }).then(() => undefined),
 };
 
 export type Api = typeof api;

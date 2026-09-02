@@ -4,6 +4,7 @@ import { pino } from 'pino';
 
 import { createApp } from './app';
 import { ConfigError, loadConfig } from './config';
+import { InMemoryDislikesStore } from './dislikes/dislikes.store';
 import { InMemoryFavoritesStore } from './favorites/favorites.store';
 import { createMetrics } from './http/metrics';
 import { createFavqsClient } from './quotes/favqs.client';
@@ -24,6 +25,7 @@ function main(): void {
   const app = createApp({
     favqsClient,
     favoritesStore: new InMemoryFavoritesStore(),
+    dislikesStore: new InMemoryDislikesStore(),
     logger,
     metrics,
   });

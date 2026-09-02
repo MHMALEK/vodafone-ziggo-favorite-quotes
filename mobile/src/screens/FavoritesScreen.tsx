@@ -17,21 +17,21 @@ export default function FavoritesScreen() {
     }, [refresh]),
   );
 
-  if (loading && favorites === null) {
-    return <StatusView loading />;
-  }
   if (error && favorites === null) {
     return <StatusView error={error} onRetry={refresh} />;
+  }
+  if (favorites === null) {
+    return <StatusView loading />;
   }
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={favorites ?? []}
+        data={favorites}
         keyExtractor={(favorite) => String(favorite.id)}
-        contentContainerStyle={favorites?.length ? styles.list : styles.emptyList}
+        contentContainerStyle={favorites.length ? styles.list : styles.emptyList}
         ListEmptyComponent={
-          <StatusView message="No favorites yet — like something on Home or Search." />
+          <StatusView icon="heart-outline" message="No favorites yet — like something on Home or Search." />
         }
         renderItem={({ item }) => (
           <QuoteCard

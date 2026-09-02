@@ -14,6 +14,13 @@ export function quotesController(quotesService: QuotesService): Router {
 
   router.get('/api/quote', async (_req, res) => {
     const quote = await quotesService.getQuoteOfTheDay();
+    if (quote === null) {
+      throw new HttpError(
+        404,
+        'NO_QUOTE_AVAILABLE',
+        'Every quote FavQs offered is on your hidden list — try again.',
+      );
+    }
     res.json({ quote });
   });
 

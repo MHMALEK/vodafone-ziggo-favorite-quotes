@@ -22,6 +22,12 @@ flowchart LR
 
 The app never talks to FavQs. The API key never leaves the server.
 
+## Screens
+
+| Home | Favorites | Search | Dark mode |
+|---|---|---|---|
+| ![Home](docs/screenshots/home.png) | ![Favorites](docs/screenshots/favorites.png) | ![Search](docs/screenshots/search.png) | ![Dark](docs/screenshots/home-dark.png) |
+
 ## Layout
 
 - `server/` — Express + TypeScript API
@@ -67,16 +73,18 @@ iOS simulator uses `http://localhost:4000` by default. Android emulator: copy `m
 | `POST /api/favorites` | 201 created, 200 already saved (idempotent) | 400 invalid body |
 | `GET /api/favorites` | 200 `{favorites:[…]}` newest first | — |
 | `DELETE /api/favorites/:id` | 204 | 400 bad id, 404 unknown id |
+| `POST /api/dislikes` | 201 hidden / 200 already hidden | 400 invalid body |
+| `GET /api/dislikes` · `DELETE /api/dislikes/:id` | 200 `{dislikes:[ids]}` · 204 | 400 bad id, 404 |
 
 Errors are always `{error: {code, message, correlationId}}`. Send `x-request-id` and it comes back as the correlation id, in the response and in the server logs.
 
 ## Tests
 
 ```bash
-cd server && npm test               # unit + integration (vitest + supertest, 51 tests)
+cd server && npm test               # unit + integration (vitest + supertest, 61 tests)
 cd server && npm run test:coverage  # coverage gate: 90% lines, 85% branches
 cd server && npm run test:e2e       # Playwright API tests, boots its own server
-cd mobile && npm test               # screen + hook tests (jest-expo + RNTL, 16 tests)
+cd mobile && npm test               # screen + hook tests (jest-expo + RNTL, 19 tests)
 make e2e-app                        # Maestro flow in the iOS simulator
 ```
 
@@ -85,7 +93,7 @@ CI runs lint, build, coverage-gated tests, the Playwright suite, mobile tests, a
 ## Assessment questions
 
 **What did I implement?**
-Everything in the required and optional scope: quote of the day, save/list/delete favorites, search, all three screens with loading/error/empty states, dark mode, tests on both sides. Plus what I'd want in any service I run: central error handling, JSON logs with correlation IDs, `/metrics`, OpenAPI docs, Docker, CI, graceful shutdown.
+Everything in the required and optional scope: quote of the day, save/list/delete favorites, search, all three screens with loading/error/empty states, dark mode, tests on both sides. Plus a "don't show this again" feature (hide a quote forever — filtered from search, skipped for quote of the day, evicted from favorites), a debounced/throttled search-as-you-type experience, an app-level error boundary, and what I'd want in any service I run: central error handling, JSON logs with correlation IDs, `/metrics`, OpenAPI docs, Docker, CI, graceful shutdown.
 
 **Why did I implement or skip certain things?**
 The backend is what's being evaluated, so the depth went there. I skipped a database (allowed by the brief, reasoning below), auth (out of scope), FavQs caching and retries (assessment traffic never hits their rate limits), and app-side state management (nothing to cache in an app this small).

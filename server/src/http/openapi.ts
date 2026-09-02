@@ -21,6 +21,7 @@ export const openApiSpec = {
   tags: [
     { name: 'quotes', description: 'Quotes proxied from FavQs' },
     { name: 'favorites', description: 'Liked quotes (in-memory, single user)' },
+    { name: 'dislikes', description: 'Hidden quotes — never shown again (in-memory)' },
     { name: 'ops', description: 'Health and monitoring' },
   ],
   paths: {
@@ -41,6 +42,7 @@ export const openApiSpec = {
               },
             },
           },
+          '404': errorResponse('Every offered quote is on the dislike list'),
           '502': errorResponse('FavQs request failed'),
           '504': errorResponse('FavQs timed out'),
         },
@@ -146,6 +148,67 @@ export const openApiSpec = {
           '204': { description: 'Favorite removed' },
           '400': errorResponse('Non-numeric or non-positive id'),
           '404': errorResponse('No favorite with that id'),
+        },
+      },
+    },
+    '/api/dislikes': {
+      post: {
+        tags: ['dislikes'],
+        summary: 'Hide a quote permanently ("don\'t show this again")',
+        description:
+          'Idempotent. A hidden quote is filtered from search results and skipped for quote-of-the-day; hiding also removes it from favorites.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: { id: { type: 'integer', minimum: 1 } },
+                required: ['id'],
+              },
+            },
+          },
+        },
+        responses: {
+          '201': { description: 'Quote hidden' },
+          '200': { description: 'Quote was already hidden' },
+          '400': errorResponse('Invalid body'),
+        },
+      },
+      get: {
+        tags: ['dislikes'],
+        summary: 'List hidden quote ids',
+        responses: {
+          '200': {
+            description: 'Hidden ids',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: { dislikes: { type: 'array', items: { type: 'integer' } } },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    '/api/dislikes/{id}': {
+      delete: {
+        tags: ['dislikes'],
+        summary: 'Un-hide a quote',
+        parameters: [
+          {
+            name: 'id',
+            in: 'path',
+            required: true,
+            schema: { type: 'integer', minimum: 1 },
+          },
+        ],
+        responses: {
+          '204': { description: 'Quote un-hidden' },
+          '400': errorResponse('Non-numeric or non-positive id'),
+          '404': errorResponse('Id was not hidden'),
         },
       },
     },

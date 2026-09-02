@@ -1,5 +1,6 @@
 import type { AppDependencies } from '../app';
 import { createApp } from '../app';
+import { InMemoryDislikesStore } from '../dislikes/dislikes.store';
 import { InMemoryFavoritesStore } from '../favorites/favorites.store';
 import type { FavqsClient } from '../quotes/favqs.client';
 import type { Quote } from '../quotes/quote.model';
@@ -23,6 +24,7 @@ export function makeTestApp(overrides: Partial<AppDependencies> = {}) {
   const deps: AppDependencies = {
     favqsClient: stubFavqsClient(),
     favoritesStore: new InMemoryFavoritesStore(),
+    dislikesStore: new InMemoryDislikesStore(),
     ...overrides,
   };
   return { app: createApp(deps), deps };

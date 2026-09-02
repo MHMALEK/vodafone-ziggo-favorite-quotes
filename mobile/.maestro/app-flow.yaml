@@ -4,24 +4,35 @@ appId: host.exp.Exponent
 ---
 - openLink: exp://127.0.0.1:8081
 - extendedWaitUntil:
+    visible:
+      id: 'tab-home'
+    timeout: 45000
+- tapOn:
+    id: 'tab-home'
+- extendedWaitUntil:
     visible: 'New Quote'
-    timeout: 30000
+    timeout: 15000
 
-# Home: quote of the day is rendered, like it
-- assertVisible: 'Like'
+# Home: fetch a fresh quote (the current one may already be liked), then like it
+- tapOn: 'New Quote'
+- extendedWaitUntil:
+    visible: 'Like'
+    timeout: 10000
 - tapOn: 'Like'
 - extendedWaitUntil:
     visible: 'Liked'
     timeout: 10000
 
 # Favorites: the liked quote is listed
-- tapOn: 'Favorites'
+- tapOn:
+    id: 'tab-favorites'
 - extendedWaitUntil:
     visible: 'saved .*'
     timeout: 10000
 
 # Search: results come back and can be liked
-- tapOn: 'Search'
+- tapOn:
+    id: 'tab-search'
 - tapOn: 'Search quotes'
 - inputText: 'coffee'
 - pressKey: enter

@@ -27,6 +27,18 @@ function submitSearch(keyword: string) {
 }
 
 describe('SearchScreen', () => {
+  it('auto-searches while typing and resets when the input is cleared', async () => {
+    mockedApi.searchQuotes.mockResolvedValue([result]);
+    renderSearch();
+    const input = screen.getByPlaceholderText('Search quotes');
+
+    fireEvent.changeText(input, 'coffee');
+    expect(await screen.findByText(/Coffee first\./)).toBeTruthy();
+
+    fireEvent.changeText(input, '');
+    expect(await screen.findByText(/Type at least 3 characters/)).toBeTruthy();
+  });
+
   it('shows results and likes one from the list', async () => {
     mockedApi.searchQuotes.mockResolvedValue([result]);
     mockedApi.saveFavorite.mockResolvedValue({ ...result, savedAt: '2026-09-01T12:00:00.000Z' });

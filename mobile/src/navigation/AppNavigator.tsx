@@ -17,6 +17,9 @@ export default function AppNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerShadowVisible: false,
+        headerTitleStyle: { fontWeight: '700' },
+        tabBarButtonTestID: `tab-${route.name.toLowerCase()}`,
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons
             name={TAB_ICONS[route.name as keyof typeof TAB_ICONS]}
@@ -26,9 +29,21 @@ export default function AppNavigator() {
         ),
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Quote of the Day', tabBarLabel: 'Home' }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{ title: 'Your Favorites', tabBarLabel: 'Favorites' }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{ title: 'Search Quotes', tabBarLabel: 'Search' }}
+      />
     </Tab.Navigator>
   );
 }

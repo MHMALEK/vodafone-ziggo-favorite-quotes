@@ -39,6 +39,9 @@ All responses JSON. Errors use `{ "error": { "code": string, "message": string, 
 | `POST /api/favorites` | 201 `{favorite}` created, 200 `{favorite}` already saved (idempotent) | 400 invalid body |
 | `GET /api/favorites` | 200 `{favorites:[…]}` newest-saved first | — |
 | `DELETE /api/favorites/:id` | 204 | 400 non-numeric id, 404 unknown id |
+| `POST /api/dislikes` | 201 hidden / 200 already hidden (idempotent) | 400 invalid body |
+| `GET /api/dislikes` | 200 `{dislikes:[ids]}` | — |
+| `DELETE /api/dislikes/:id` | 204 | 400 bad id, 404 not hidden |
 
 Shapes:
 
@@ -46,6 +49,10 @@ Shapes:
 - `POST /api/favorites` body: `{ id: positive int, body: non-empty string, author: string, tags?: string[] }` (client sends the quote it already has; the server does not re-fetch it).
 - `favorite`: `quote` + `savedAt: ISO string`.
 - Unknown routes → 404 JSON error; unexpected exceptions → 500 JSON error (no stack traces in responses).
+
+## Dislikes ("don't show this again")
+
+Hiding a quote id filters it from search results and makes quote-of-the-day retry FavQs (up to 3 attempts; all hidden → 404 `NO_QUOTE_AVAILABLE`). Hiding a quote also removes it from favorites — the two states are mutually exclusive. `GET /api/quote` gains a 404 error case for the exhausted path.
 
 ## Storage semantics
 
