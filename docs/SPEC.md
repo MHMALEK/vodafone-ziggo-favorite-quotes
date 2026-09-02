@@ -33,6 +33,7 @@ All responses JSON. Errors use `{ "error": { "code": string, "message": string, 
 |---|---|---|
 | `GET /health` | 200 `{status:"ok"}` (never calls FavQs) | — |
 | `GET /metrics` | 200 Prometheus text format | — |
+| `GET /docs` · `GET /openapi.json` | Swagger UI · raw OpenAPI 3 spec | — |
 | `GET /api/quote` | 200 `{quote}` | 502 upstream failed, 504 upstream timeout |
 | `GET /api/quotes/search?q={keyword}` | 200 `{quotes:[…]}` (empty array when no hits) | 400 missing/blank/over-100-chars `q`, 502, 504 |
 | `POST /api/favorites` | 201 `{favorite}` created, 200 `{favorite}` already saved (idempotent) | 400 invalid body |

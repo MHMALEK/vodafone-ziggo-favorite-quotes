@@ -9,6 +9,7 @@ import { correlationId } from './http/correlation-id';
 import { createErrorHandler, notFoundHandler } from './http/error-handler';
 import type { Metrics } from './http/metrics';
 import { createMetrics, httpMetrics, metricsRouter } from './http/metrics';
+import { docsRouter } from './http/openapi';
 import { requestLogger } from './http/request-logger';
 import type { FavqsClient } from './quotes/favqs.client';
 import { quotesController } from './quotes/quotes.controller';
@@ -38,6 +39,7 @@ export function createApp(deps: AppDependencies): express.Express {
     res.json({ status: 'ok' });
   });
   app.use(metricsRouter(metrics.registry));
+  app.use(docsRouter());
 
   app.use(quotesController(quotesService));
   app.use(favoritesController(favoritesService));

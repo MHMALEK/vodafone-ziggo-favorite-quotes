@@ -66,6 +66,29 @@ describe('GET /metrics', () => {
   });
 });
 
+describe('API docs', () => {
+  it('serves the OpenAPI spec', async () => {
+    const { app } = makeTestApp();
+
+    const res = await request(app).get('/openapi.json');
+
+    expect(res.status).toBe(200);
+    expect(res.body.openapi).toMatch(/^3\./);
+    expect(Object.keys(res.body.paths)).toEqual(
+      expect.arrayContaining(['/api/quote', '/api/quotes/search', '/api/favorites']),
+    );
+  });
+
+  it('serves Swagger UI', async () => {
+    const { app } = makeTestApp();
+
+    const res = await request(app).get('/docs/');
+
+    expect(res.status).toBe(200);
+    expect(res.text).toContain('swagger-ui');
+  });
+});
+
 describe('favqs client observation', () => {
   it('reports success and failure outcomes with durations', async () => {
     const observe = vi.fn();
