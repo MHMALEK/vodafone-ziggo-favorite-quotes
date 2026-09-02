@@ -4,7 +4,7 @@ IMAGE := favorites-quotes-server
 CONTAINER := favorites-quotes
 PORT ?= 4000
 
-.PHONY: help setup dev test coverage e2e lint build docker-build docker-run docker-logs docker-stop mobile
+.PHONY: help setup run dev test coverage e2e lint build docker-build docker-run docker-logs docker-stop mobile
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -12,6 +12,9 @@ help: ## List available targets
 setup: ## Install dependencies (server + mobile when present)
 	cd server && npm install
 	@if [ -d mobile ]; then cd mobile && npm install; fi
+
+run: ## Run API + Expo app together (Ctrl+C stops both)
+	@trap 'kill 0' EXIT INT TERM; (cd server && npm run dev) & (cd mobile && npx expo start) & wait
 
 dev: ## Run the API in watch mode
 	cd server && npm run dev
