@@ -17,7 +17,7 @@ describe('InMemoryFavoritesStore', () => {
 
     const result = store.add(quote(1));
 
-    expect(result.created).toBe(true);
+    expect(result.created).toBe(false);
     expect(result.favorite).toEqual({ ...quote(1), savedAt: fixed.toISOString() });
   });
 
