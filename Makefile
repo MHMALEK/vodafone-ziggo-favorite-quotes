@@ -4,7 +4,7 @@ IMAGE := favorites-quotes-server
 CONTAINER := favorites-quotes
 PORT ?= 4000
 
-.PHONY: help setup run dev test coverage e2e lint build docker-build docker-run docker-logs docker-stop mobile
+.PHONY: help setup run dev test coverage e2e e2e-app lint build docker-build docker-run docker-logs docker-stop mobile
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -28,6 +28,9 @@ coverage: ## Run server tests with the coverage gate
 
 e2e: ## Run Playwright API tests (boots its own server)
 	cd server && npm run test:e2e
+
+e2e-app: ## Run the Maestro app flow (needs `make run` + booted simulator + maestro CLI)
+	maestro test mobile/.maestro/app-flow.yaml
 
 lint: ## Lint the server
 	cd server && npm run lint

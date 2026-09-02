@@ -1,0 +1,30 @@
+# End-to-end journey through the app in the iOS simulator (Expo Go).
+# Prereqs: `make run` (API + Expo) and a booted simulator, then: maestro test mobile/.maestro/app-flow.yaml
+appId: host.exp.Exponent
+---
+- openLink: exp://127.0.0.1:8081
+- extendedWaitUntil:
+    visible: 'New Quote'
+    timeout: 30000
+
+# Home: quote of the day is rendered, like it
+- assertVisible: 'Like'
+- tapOn: 'Like'
+- extendedWaitUntil:
+    visible: 'Liked'
+    timeout: 10000
+
+# Favorites: the liked quote is listed
+- tapOn: 'Favorites'
+- extendedWaitUntil:
+    visible: 'saved .*'
+    timeout: 10000
+
+# Search: results come back and can be liked
+- tapOn: 'Search'
+- tapOn: 'Search quotes'
+- inputText: 'coffee'
+- pressKey: enter
+- extendedWaitUntil:
+    visible: 'Like'
+    timeout: 15000
