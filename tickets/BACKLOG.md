@@ -25,7 +25,7 @@ Workflow rules:
 | T10 | [Home screen](T10-home-screen.md) | 30m | ⏳ code done; sim walk pending |
 | T11 | [Favorites screen](T11-favorites-screen.md) | 30m | ⏳ code done; sim walk pending |
 | T12 | [Search screen](T12-search-screen.md) | 30m | ⏳ code done; sim walk pending |
-| T13 | [Dark mode + RN component tests](T13-polish.md) | 45m | ☐ |
+| T13 | [Dark mode + RN component tests](T13-polish.md) | 45m | ⏳ code+tests done; sim appearance check pending |
 | T16 | [CI pipeline (GitHub Actions)](T16-ci.md) | 25m | ☐ |
 | T14 | [README + submission](T14-readme.md) | 30m | ☐ |
 
