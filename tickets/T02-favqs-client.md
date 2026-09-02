@@ -15,7 +15,7 @@
 ## Acceptance criteria
 - [x] Unit tests (mocked `fetch`): qotd happy path, search happy path, empty search → `[]`, upstream 500 → `UpstreamError(http)`, timeout → `UpstreamError(timeout)`, malformed JSON/shape → `UpstreamError(malformed)`.
 - [x] No route/Express imports in the module.
-- [ ] One manual smoke against the real FavQs API with the real key. *(Pending `FAVQS_API_KEY` in `server/.env` — the qotd shape was verified against the live API on 2026-09-01; unauthenticated search returns "HTTP Token: Access denied.", so the authenticated search smoke is the outstanding piece.)*
+- [x] One manual smoke against the real FavQs API with the real key. (2026-09-02: qotd + authenticated search + empty-search quirk all verified live; no auth material in logs.)
 
 ## Verify
 ```bash
