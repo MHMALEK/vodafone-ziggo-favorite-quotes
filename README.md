@@ -105,11 +105,13 @@ SQLite behind the existing store interface, a shared types package (the mobile c
 - **Database**: skipped for time and simplicity. Favorites sit in a `Map` behind the `FavoritesStore` interface, so a real store is a drop-in replacement in `index.ts`. First thing I'd add for production.
 - **100% coverage**: the gate is 90/85 (actuals ~100/95). `index.ts` bootstrap and test helpers are excluded; a few defensive branches aren't worth synthetic tests. No snapshot tests (they assert markup, not behavior) and no Detox/Maestro in CI (too heavy for this scope).
 - **FavQs resilience extras**: no caching, retries, or circuit breaker. Timeouts and typed upstream errors are in.
-- **Deployment**: nothing is implemented because the reviewer can't run it. The sketch below is the plan, so the thinking is on record.
+- **Cloud infra**: kept minimal on purpose. A demo instance runs on Fly.io (below); the full production story is a sketch, not code.
 
-## Deployment sketch
+## Deployment
 
-The image is already the right shape: multi-stage, non-root, healthcheck, SIGTERM drain, env-only config, `/health` and `/metrics`. To ship it:
+A demo instance runs at **https://morning-summit-455.fly.dev** (`/docs`, `/health`, `/api/quote`) — the unmodified Docker image on a single Fly.io machine in `ams`, key injected as a Fly secret (`server/fly.toml`). It auto-stops when idle, so the first request may take a few seconds. Favorites reset whenever the machine restarts; that's the in-memory trade-off on display.
+
+For a real production setup the image is already the right shape: multi-stage, non-root, healthcheck, SIGTERM drain, env-only config, `/health` and `/metrics`. The path:
 
 1. CI pushes the image (tagged by commit SHA) to a registry.
 2. Kubernetes: Deployment with 2+ replicas, resource requests/limits, Service + Ingress, config from a ConfigMap, `FAVQS_API_KEY` from a secret manager ([docs/SECRETS.md](docs/SECRETS.md)). `/health` never calls FavQs, so it's safe for both liveness and readiness; a FavQs outage should surface as 502s, not pods dropping off the load balancer.
