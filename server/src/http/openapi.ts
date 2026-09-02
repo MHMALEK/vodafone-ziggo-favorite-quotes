@@ -17,7 +17,7 @@ export const openApiSpec = {
       'Express REST API wrapping the FavQs API and managing liked quotes for a single user. ' +
       'The FavQs API key lives server-side only; clients never talk to FavQs directly.',
   },
-  servers: [{ url: 'http://localhost:4000', description: 'Local development' }],
+  servers: [{ url: '/', description: 'This host' }],
   tags: [
     { name: 'quotes', description: 'Quotes proxied from FavQs' },
     { name: 'favorites', description: 'Liked quotes (in-memory, single user)' },
