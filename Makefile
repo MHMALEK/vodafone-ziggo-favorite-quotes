@@ -4,7 +4,7 @@ IMAGE := favorites-quotes-server
 CONTAINER := favorites-quotes
 PORT ?= 4000
 
-.PHONY: help setup run dev test coverage e2e e2e-app lint build docker-build docker-run docker-logs docker-stop mobile
+.PHONY: help setup run dev test coverage e2e e2e-app lint build docker-build docker-run docker-logs docker-stop mobile ios android
 
 help: ## List available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-14s %s\n", $$1, $$2}'
@@ -50,5 +50,11 @@ docker-logs: ## Tail container logs
 docker-stop: ## Stop the container (graceful SIGTERM)
 	docker stop $(CONTAINER)
 
-mobile: ## Start the Expo app
+mobile: ## Start the Expo app (choose platform interactively)
 	cd mobile && npx expo start
+
+ios: ## Run the app in the iOS simulator
+	cd mobile && npx expo start --ios
+
+android: ## Run the app in the Android emulator (API reached via 10.0.2.2)
+	cd mobile && EXPO_PUBLIC_API_URL=http://10.0.2.2:4000 npx expo start --android

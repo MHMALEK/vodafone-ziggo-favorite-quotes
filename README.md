@@ -59,10 +59,14 @@ make run                                    # API + Expo app together
 ## Run the app
 
 ```bash
-cd mobile && npm install && npx expo start  # press i for the iOS simulator
+make ios       # iOS simulator (API on http://localhost:4000)
 ```
 
-iOS simulator uses `http://localhost:4000` by default. Android emulator: copy `mobile/.env.example` to `.env` and set `EXPO_PUBLIC_API_URL=http://10.0.2.2:4000`. Physical device: your machine's IP.
+```bash
+make android   # Android emulator (API via http://10.0.2.2:4000, preset by the target)
+```
+
+Or `cd mobile && npm install && npx expo start` and pick a platform there. Physical device: copy `mobile/.env.example` to `.env` and set `EXPO_PUBLIC_API_URL=http://<your-machine-ip>:4000`.
 
 ## API
 
